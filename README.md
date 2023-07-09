@@ -27,9 +27,11 @@ The Pull Request Description Generator is an innovative tool that utilizes the p
 
 To use the Pull Request Description Generator in your project, follow these steps:
 
-1. Create an account on OpenAI, set up a payment method and get your OpenAI API key.
-2. Add the OpenAI API key as a secret in your repository's settings.
-3. Create a workflow YAML file, e.g. .github/workflows/gpt-pr-description.yml with the following contents:
+1. Create an account on OpenAI, set up a payment method and get your [OpenAI API key].
+2. Add the two keys as a [secret] in your repository's settings with the following names:
+    - github_token: The GitHub token to use for the Action. <span style="color:red;">(Required)</span>
+    - openai_api_key: The [OpenAI API key] to use, keep it hidden. <span style="color:red;">(Required)</span>
+3. Create a workflow YAML file, e.g. ```.github/workflows/gpt-pr-description.yml``` with the following contents:
 
 ```yaml
 name: GPT3 PR Description with OpenAI
@@ -47,6 +49,18 @@ jobs:
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
 ```
 
-## Contribution
+You can specify more options as follow:
 
-Contributions to the Pull Request Description Generator are welcome! If you have any ideas, improvements, or bug fixes, feel free to submit a pull request.
+| Input             | Description                                           | Required | Default                    |
+| ----------------- | ----------------------------------------------------- | -------- | -------------------------- |
+| `github_token`    | The GitHub token to use for the Action                | Yes      |                            |
+| `openai_api_key`  | The [OpenAI API key] to use, keep it hidden           | Yes      |                            |
+| `pull_request_id` | The ID of the pull request to use                     | No       | Extracted from metadata    |
+| `openai_model`    | The [OpenAI model] to use                             | No       | `gpt-3.5-turbo-16k`            |
+| `max_tokens`      | The maximum number of **prompt tokens** to use        | No       | `1000`                     |
+| `temperature`     | Higher values will make the model more creative (0-2) | No       | `0.6`                      |
+
+
+[OpenAI API key]: https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key
+[OpenAI model]: https://platform.openai.com/docs/models
+[secret]: https://docs.github.com/en/actions/security-guides/encrypted-secrets
